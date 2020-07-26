@@ -1,0 +1,7 @@
+gensim
+spacy
+matplotlib
+wordcloud
+nltk
+pyLDAvis
+
