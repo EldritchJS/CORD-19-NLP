@@ -6,7 +6,7 @@ import os
 from os import environ
 
 def main(args):
-    fullpath=args.destination + args.source.split('/')[-1]
+    fullpath=args.destination + '/' + args.source.split('/')[-1]
     logging.info('downloading ' + args.source + ' to ' + fullpath)
     wget.download(args.source, fullpath)
 
