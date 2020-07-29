@@ -1,9 +1,37 @@
 import sys
 import wget
+import logging
+import argparse
+import os
+from os import environ
 
-if len(sys.argv) == 3:
-    url = sys.argv[1]
-    destination = sys.argv[2]
-    wget.download(url, destination)
-else:
-    print('Usage: ' + sys.argv[0] + ' <SOURCE_URL> <DESTINATION_PATH>')
+def main(args):
+    fullpath=args.destination + args.source.split('/')[-1]
+    logging.info('downloading ' + args.source + ' to ' + fullpath)
+    wget.download(args.source, fullpath)
+
+def get_arg(env, default):
+    return os.getenv(env) if os.getenv(env, "") != "" else default
+
+def parse_args(parser):
+    args = parser.parse_args()
+    args.brokers = get_arg('SOURCE_URL', args.source)
+    args.topic = get_arg('DESTINATION_PATH', args.destination)
+    return args
+
+
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+    logging.info('parsing args')
+    parser = argparse.ArgumentParser(description='wget a file')
+    parser.add_argument(
+            '--source',
+            help='Source URL, env variable SOURCE_URL',
+            default='https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/2020-07-16/metadata.csv')
+    parser.add_argument(
+            '--destination',
+            help='Path for destination, env variable DESTINATION_PATH',
+            default='./')
+    cmdline_args = parse_args(parser)
+    main(cmdline_args)
+    logging.info('exiting')
