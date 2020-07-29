@@ -31,7 +31,7 @@ if __name__ == '__main__':
     parser.add_argument(
             '--destination',
             help='Path for destination, env variable DESTINATION_PATH',
-            default='./')
+            default='/mnt/data')
     cmdline_args = parse_args(parser)
     main(cmdline_args)
     logging.info('exiting')
