@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  namespace: jschless-test
+  generateName: cord-19
+  labels:
+    app: process-cord-19
+spec:
+  serviceAccountName: argo-workflow
+  entrypoint: entrypoint
+  volumeClaimTemplates:
+    - metadata:
+        name: data-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
+
+  templates:
+    - name: entrypoint
+      steps:
+        - - name: cord-19-acquisition
+            template: data-acquisition
+        - - name: cord-19-processing
+            template: data-processing
+    - name: data-acquisition
+      container:
+        name: data-acquisition
+        image: quay.io/eldritchjs/acquisition:cmp
+        command: []
+        volumeMounts:
+          - name: data-storage
+            mountPath: /mnt/data
+    - name: data-verify
+      container:
+        name: data-verify
+        image: alpine:latest
+        command: [sh, -c]
+        args: ["echo getting data from volume; find /mnt/data; head -n 13 /mnt/data/metadata.csv"]
+        volumeMounts:
+        - name: data-storage
+          mountPath: /mnt/data
+    - name: data-processing
+      container: 
+        name: data-processing
+        image: quay.io/eldritchjs/processing:init
+        command: []
+        volumeMounts:
+          - name: data-storage
+            mountPath: /mnt/data
+
