@@ -32,15 +32,6 @@ spec:
         volumeMounts:
           - name: data-storage
             mountPath: /mnt/data
-    - name: data-verify
-      container:
-        name: data-verify
-        image: alpine:latest
-        command: [sh, -c]
-        args: ["echo getting data from volume; find /mnt/data; head -n 13 /mnt/data/metadata.csv"]
-        volumeMounts:
-        - name: data-storage
-          mountPath: /mnt/data
     - name: data-processing
       container: 
         name: data-processing
