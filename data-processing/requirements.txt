@@ -3,4 +3,4 @@ spacy
 matplotlib
 wordcloud
 pyLDAvis
-kafka
+kafka-python
