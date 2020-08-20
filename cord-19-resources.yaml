@@ -1,0 +1,137 @@
+apiVersion: v1
+items:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: cord-19-nlp
+    name: python-38-centos7
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: centos/python-38-centos7
+      from:
+        kind: DockerImage
+        name: centos/python-38-centos7
+      generation: null
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: ""
+  status:
+    dockerImageRepository: ""
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: cord-19-nlp
+    name: cord-19-nlp-proc
+  spec:
+    lookupPolicy:
+      local: false
+  status:
+    dockerImageRepository: ""
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: cord-19-nlp
+    name: cord-19-nlp-proc
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: cord-19-nlp-proc:latest
+    postCommit: {}
+    resources: {}
+    source:
+      contextDir: data-processing
+      git:
+        uri: https://github.com/eldritchjs/CORD-19-NLP
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: python-38-centos7:latest
+      type: Source
+    triggers:
+    - github:
+        secret: _u4g8n9RaJL3XcSoVVid
+      type: GitHub
+    - generic:
+        secret: Spw1uqBdyXLvzKi2fFzJ
+      type: Generic
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+  status:
+    lastVersion: 0
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: cord-19-nlp
+    name: cord-19-nlp-acq
+  spec:
+    lookupPolicy:
+      local: false
+  status:
+    dockerImageRepository: ""
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: cord-19-nlp
+    name: cord-19-nlp-acq
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: cord-19-nlp-acq:latest
+    postCommit: {}
+    resources: {}
+    source:
+      contextDir: data-acquisition
+      git:
+        uri: https://github.com/eldritchjs/CORD-19-NLP
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: python-38-centos7:latest
+      type: Source
+    triggers:
+    - github:
+        secret: 3rhSvvqHpFM8u9NKKIA_
+      type: GitHub
+    - generic:
+        secret: 5xDOLwYsityD7H7CgDj5
+      type: Generic
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+  status:
+    lastVersion: 0
+kind: List
+metadata: {}
