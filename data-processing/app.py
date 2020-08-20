@@ -23,6 +23,7 @@ from spacy.lang.en.stop_words import STOP_WORDS
 import pyLDAvis.gensim
 
 from kafka import KafkaProducer
+from json import dumps
 
 def main(args):
     nlp=en_core_web_sm.load()
