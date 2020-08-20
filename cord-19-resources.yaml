@@ -68,12 +68,6 @@ items:
           name: python-38-centos7:latest
       type: Source
     triggers:
-    - github:
-        secret: _u4g8n9RaJL3XcSoVVid
-      type: GitHub
-    - generic:
-        secret: Spw1uqBdyXLvzKi2fFzJ
-      type: Generic
     - type: ConfigChange
     - imageChange: {}
       type: ImageChange
@@ -122,12 +116,6 @@ items:
           name: python-38-centos7:latest
       type: Source
     triggers:
-    - github:
-        secret: 3rhSvvqHpFM8u9NKKIA_
-      type: GitHub
-    - generic:
-        secret: 5xDOLwYsityD7H7CgDj5
-      type: Generic
     - type: ConfigChange
     - imageChange: {}
       type: ImageChange

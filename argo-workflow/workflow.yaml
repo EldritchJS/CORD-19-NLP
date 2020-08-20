@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  namespace: jschless-test
+  namespace: <PROJECT_NAME>
   generateName: cord-19
   labels:
     app: process-cord-19
