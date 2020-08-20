@@ -1,7 +1,7 @@
 # CORD-19-NLP
 
 ### Overview
-The CORD-19 dataset (url)[https://www.semanticscholar.org/cord19] is an open research collection provided by the Allen Institute for AI. Its intent is to facilitate natural language processing research by collecting and annotating scholarly articles pertaining to COVID-19. The dataset is updated daily, with both full text of articles when available and metadata. 
+The CORD-19 dataset https://www.semanticscholar.org/cord19 is an open research collection provided by the Allen Institute for AI. Its intent is to facilitate natural language processing research by collecting and annotating scholarly articles pertaining to COVID-19. The dataset is updated daily, with both full text of articles when available and metadata. 
 
 ### Workflow motivation
 If we consider a use case wherein analysis of the CORD-19 would need to be performed on an as needed basis, the need arising from updated data being made available, we would have at least two operations of importance: 
