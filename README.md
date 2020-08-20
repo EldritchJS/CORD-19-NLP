@@ -31,10 +31,10 @@ Then start a new application of Kafka via strimzi.
 
 Now the flask application can be generated. Change `KAFKA_TOPIC` as desired.
 
-```oc new-app centos/python-36-centos7~https://gitlab.com/bones-brigade/flask-kafka-python-listener.git \
+`oc new-app centos/python-36-centos7~https://gitlab.com/bones-brigade/flask-kafka-python-listener.git \
   -e KAFKA_BROKERS=kafka:9092 \
   -e KAFKA_TOPIC=cord-19-nlp \
-  --name=listener```
+  --name=listener`
 
 In order to browse to the flask app, expose the listener service just generated.
 
