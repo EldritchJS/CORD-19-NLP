@@ -22,6 +22,7 @@ from spacy.lang.en.stop_words import STOP_WORDS
 
 import pyLDAvis.gensim
 
+from kafka import KafkaProducer
 
 def main(args):
     nlp=en_core_web_sm.load()
@@ -72,15 +73,25 @@ def main(args):
     abstract_corpus=abstract_gen_corp[1]
     abstract_lda_model = generate_lda_model(abstract_words,abstract_corpus)
     logging.info('Topics: ')
+    topics = []
     for topic in abstract_lda_model.show_topics():
         logging.info(topic[1])
+        topics.append(topic[1])
+    logging.info('creating kafka producer')
+    data = {
+            "topics": topics 
+            }
+    producer = KafkaProducer(bootstrap_servers=args.brokers)
+    producer.send(args.topic, value=data)
 
 def get_arg(env, default):
     return os.getenv(env) if os.getenv(env, "") != "" else default
 
 def parse_args(parser):
     args = parser.parse_args()
-    args.brokers = get_arg('SOURCE_FILE', args.source)
+    args.source = get_arg('SOURCE_FILE', args.source)
+    args.brokers = get_arg('KAFKA_BROKERS', args.brokers)
+    args.topic = get_arg('KAFKA_TOPIC', args.topic)
     return args
 
 if __name__ == '__main__':
@@ -91,6 +102,14 @@ if __name__ == '__main__':
             '--source',
             help='Source file, env variable SOURCE_FILE',
             default='/mnt/data/metadata.csv')
+    parser.add_argument(
+            '--brokers',
+            help='Topic to publish to, env variable KAFKA_BROKERS',
+            default='kafka:9092')
+    parser.add_argument(
+            '--topic',
+            help='Topic to publish to, env variable KAFKA_TOPIC',
+            default='cord-19-nlp')
     cmdline_args = parse_args(parser)
     main(cmdline_args)
     logging.info('exiting')
