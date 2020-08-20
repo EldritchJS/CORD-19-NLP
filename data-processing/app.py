@@ -14,6 +14,9 @@ from gensim.models import CoherenceModel
 
 import spacy
 spacy.prefer_gpu()
+import spacy.cli
+spacy.cli.download("en_core_web_lg")
+import en_core_web_lg
 from spacy.lemmatizer import Lemmatizer
 from spacy.lang.en.stop_words import STOP_WORDS
 
@@ -21,7 +24,7 @@ import pyLDAvis.gensim
 
 
 def main(args):
-    nlp=spacy.load('en_core_web_lg')
+    nlp=en_core_web_lg.load()
     nlp.Defaults.stop_words.update(['sars','covid-19', 'cov-2','=','from', 'subject', 're', 'edu', 'use', 'not', 'would', 'say', 'could', '_', 'be', 'know', 'good', 'go', 'get', 'do', 'done', 'try', 'many', 'some', 'nice', 'thank', 'think', 'see', 'rather', 'easy', 'easily', 'lot', 'lack', 'make', 'want', 'seem', 'run', 'need', 'even', 'right', 'line', 'even', 'also', 'may', 'take', 'come'])
     
     def lemmatize(doc):
