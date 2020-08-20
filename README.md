@@ -31,3 +31,12 @@ Click Submit and watch the workflow happen.
 
 You can see the topic modeling results by clicking on the log button for the processing node of the workflow.
 
+`oc create -f https://raw.githubusercontent.com/EldritchJS/adversarial_pipeline/master/openshift_templates/strimzi-0.1.0.yaml`
+`oc new-app strimzi`
+
+`oc new-app centos/python-36-centos7~https://gitlab.com/bones-brigade/flask-kafka-python-listener.git \
+  -e KAFKA_BROKERS=kafka:9092 \
+  -e KAFKA_TOPIC=cord-19-nlp \
+  --name=listener`
+
+`oc expose svc/listener`

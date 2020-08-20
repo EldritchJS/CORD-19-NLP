@@ -46,6 +46,11 @@ spec:
       container: 
         name: data-processing
         image: image-registry.openshift-image-registry.svc:5000/jschless-test/cord-19-nlp-proc
+        env:
+          - name: KAFKA_BROKERS
+            value: "kafka:9092"
+          - name: KAFKA_TOPIC
+            value: "cord-19-nlp"
         command: []
         volumeMounts:
           - name: data-storage
