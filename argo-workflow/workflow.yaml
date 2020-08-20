@@ -35,8 +35,10 @@ spec:
       container:
         name: data-acquisition
         image: image-registry.openshift-image-registry.svc:5000/jschless-test/cord-19-nlp-acq
+        env: 
+          - name: SOURCE_URL
+            value: "{{inputs.parameters.source}}"
         command: []
-        args: ["{{inputs.parameters.source}}"]
         volumeMounts:
           - name: data-storage
             mountPath: /mnt/data
