@@ -2,6 +2,6 @@ gensim
 spacy
 matplotlib
 wordcloud
-nltk
 pyLDAvis
+https://github.com/explosion/spacy-models/releases/download/es_core_news_lg-2.3.1/es_core_news_lg-2.3.1.tar.gz
 
