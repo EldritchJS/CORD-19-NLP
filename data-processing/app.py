@@ -15,7 +15,7 @@ from gensim.models import CoherenceModel
 import spacy
 spacy.prefer_gpu()
 import spacy.cli
-spacy.cli.download("en_core_web_lg")
+spacy.cli.download("en_core_web_sm")
 import en_core_web_lg
 from spacy.lemmatizer import Lemmatizer
 from spacy.lang.en.stop_words import STOP_WORDS
