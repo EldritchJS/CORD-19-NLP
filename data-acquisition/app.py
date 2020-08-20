@@ -15,8 +15,8 @@ def get_arg(env, default):
 
 def parse_args(parser):
     args = parser.parse_args()
-    args.brokers = get_arg('SOURCE_URL', args.source)
-    args.topic = get_arg('DESTINATION_PATH', args.destination)
+    args.source = get_arg('SOURCE_URL', args.source)
+    args.destination = get_arg('DESTINATION_PATH', args.destination)
     return args
 
 
