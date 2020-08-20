@@ -27,7 +27,7 @@ spec:
     - name: data-acquisition
       container:
         name: data-acquisition
-        image: quay.io/eldritchjs/acquisition:cmp
+        image: image-registry.openshift-image-registry.svc:5000/jschless-test/cord-19-nlp-acq
         command: []
         volumeMounts:
           - name: data-storage
@@ -35,7 +35,7 @@ spec:
     - name: data-processing
       container: 
         name: data-processing
-        image: quay.io/eldritchjs/processing:init
+        image: image-registry.openshift-image-registry.svc:5000/jschless-test/cord-19-nlp-proc
         command: []
         volumeMounts:
           - name: data-storage
