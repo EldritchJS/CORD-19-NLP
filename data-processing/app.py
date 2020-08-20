@@ -81,7 +81,9 @@ def main(args):
     data = {
             "topics": topics 
             }
-    producer = KafkaProducer(bootstrap_servers=args.brokers)
+    producer = KafkaProducer(bootstrap_servers=args.brokers,
+                             value_serializer=lambda x: 
+                             dumps(x).encode('utf-8'))
     producer.send(args.topic, value=data)
 
 def get_arg(env, default):
