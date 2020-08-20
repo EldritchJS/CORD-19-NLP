@@ -22,13 +22,21 @@ spec:
       steps:
         - - name: cord-19-acquisition
             template: data-acquisition
+            arguments: 
+              parameters:
+              - name: source
+                value: "https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/2020-08-13/metadata.csv"
         - - name: cord-19-processing
             template: data-processing
     - name: data-acquisition
+      inputs:
+        parameters:
+        - name: source
       container:
         name: data-acquisition
         image: image-registry.openshift-image-registry.svc:5000/jschless-test/cord-19-nlp-acq
         command: []
+        args: ["{{inputs.parameters.source}}"]
         volumeMounts:
           - name: data-storage
             mountPath: /mnt/data
